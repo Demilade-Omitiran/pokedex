@@ -16,6 +16,8 @@ import (
 
 var pokedex map[string]pokeapi.Pokemon = map[string]pokeapi.Pokemon{}
 
+var commandHistory []string = []string{}
+
 type config struct {
 	Next     string
 	Previous string
@@ -34,6 +36,7 @@ func cleanInput(text string) []string {
 
 func commandExit(c *config) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
+	fmt.Println(commandHistory)
 	os.Exit(0)
 	return nil
 }
@@ -240,8 +243,24 @@ func getSupportedCommands() map[string]cliCommand {
 	}
 }
 
+func updateCommandHistory(command string) {
+	numberOfEnteredCommands := len(commandHistory)
+	lastCommandShouldBeChecked := (numberOfEnteredCommands > 0)
+
+	if lastCommandShouldBeChecked {
+		lastCommand := commandHistory[numberOfEnteredCommands-1]
+
+		if lastCommand == command {
+			return
+		}
+	}
+
+	commandHistory = append(commandHistory, command)
+}
+
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
+
 	c := &config{
 		Next:     "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
 		Previous: "",
@@ -261,6 +280,8 @@ func main() {
 		if len(cleanedInput) == 0 {
 			continue
 		}
+
+		updateCommandHistory(strings.TrimSpace(text))
 
 		c.Params = cleanedInput[1:]
 
