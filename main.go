@@ -197,6 +197,14 @@ func commandPokedex(c *config) error {
 	return nil
 }
 
+func commandDisplayHistory(c *config) error {
+	for index, command := range commandHistory {
+		fmt.Printf("%d. %s\n", index+1, command)
+	}
+
+	return nil
+}
+
 func getSupportedCommands() map[string]cliCommand {
 	return map[string]cliCommand{
 		"help": {
@@ -238,6 +246,11 @@ func getSupportedCommands() map[string]cliCommand {
 			name:        "pokedex",
 			description: "Displays your caught pokemon",
 			callback:    commandPokedex,
+		},
+		"history": {
+			name:        "history",
+			description: "Displays the history of entered commands",
+			callback:    commandDisplayHistory,
 		},
 	}
 }
