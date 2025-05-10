@@ -36,7 +36,6 @@ func cleanInput(text string) []string {
 
 func commandExit(c *config) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
-	fmt.Println(commandHistory)
 	os.Exit(0)
 	return nil
 }
@@ -266,6 +265,41 @@ func main() {
 		Previous: "",
 		Params:   []string{},
 	}
+
+	pikachuAsciiArt := `
+    '::::'._
+     '.  '.                   __.,,.
+      '.  '.              _..-'''':::"
+        \   \,.--"""-.,-''  _:'
+    /\    \ .           . .-'
+    /  \   \            ':'
+   /    \  :             :
+  /      \ :             :
+  \       :              :
+   \      :    ,--,   ,-, :
+    \    :    |(_):| |():|:
+     \   :   __'--' __ '-'_ :
+      \  :  /  \   \/   / \ :
+      \  : (    )      \_/ :
+   .-''. :  \__/ '--''--'  :
+   \  .-:'.               .:
+    \':| : '-.__  ___...-' :
+     \::|:       ''''''     '.
+   .,:::': :                '.
+   \::\   :                  '._
+    \::  :  /          '-._  '.
+     \: :  /            . :-._ :-'
+      : : /             : :  ''
+      :  .' )'.        : :
+      : : .'  '.      : :
+      :'.'     :   _.' _.'
+      '._      :--''\''' _)
+         '':--''_)   '-'-'
+           '-'-'
+	`
+
+	fmt.Print("Welcome to the Pokedex!")
+	fmt.Println(pikachuAsciiArt)
 
 	for {
 		fmt.Print("Pokedex > ")
